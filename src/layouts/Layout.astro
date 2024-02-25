@@ -27,9 +27,9 @@ const { title } = Astro.props
     />
     <title>{title}</title>
   </head>
-  <body class="px-4 sm:px-6 min-h-screen lg:px-8 flex bg-black_2 2">
+  <body class="min-h-screen flex bg-black_2 2">
     <div
-      class="max-w-[360px] w-full my-auto h-[740px] overflow-scroll border-white border-[1px] mx-auto text-white [&::-webkit-scrollbar]:hidden"
+      class="max-w-[430px] min-w-[360px] w-full my-auto min-h-screen overflow-scroll border-white border-[1px] lg:mx-auto text-white [&::-webkit-scrollbar]:hidden"
     >
       <slot />
     </div>

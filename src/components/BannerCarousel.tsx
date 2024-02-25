@@ -10,8 +10,8 @@ import NumberBall from './NumberBall'
 export default function BannerCarousel() {
   return (
     <Carousel
-      className="w-full max-w-xs mt-5"
-      opts={{ loop: true }}
+      className="w-full mt-5"
+      opts={{ loop: true, align: 'center' }}
       plugins={[Autoplay({ delay: 3000 })]}
     >
       <CarouselContent>
@@ -32,7 +32,7 @@ export default function BannerCarousel() {
 function LocationCarouselItem(props: ComponentPropsWithoutRef<'article'>) {
   return (
     <CarouselItem>
-      <article className="relative bg-[url(/carousel-location.png)] bg-cover py-4 px-5 rounded-xl h-[90px]">
+      <article className="relative bg-[url(/carousel-location.png)] bg-cover bg-no-repeat py-4 px-5 rounded-xl">
         <h2 className="text-lg font-semibold">복권 판매점 쉽게 찾기</h2>
         <p className="text-xs mt-1">전국 1등 판매점</p>
         {props.children}
