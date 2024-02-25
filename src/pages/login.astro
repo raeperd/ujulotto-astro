@@ -17,6 +17,7 @@ import Layout from '../layouts/Layout.astro'
     </h1>
     <div class="absolute bottom-[188px] w-full px-4 flex-col flex items-center">
       <button
+        id="login"
         class="bg-[#fee500] items-center justify-center gap-2.5 flex w-full text-black py-4 rounded-[4px]"
       >
         <Image
@@ -32,5 +33,13 @@ import Layout from '../layouts/Layout.astro'
         >비회원으로 둘러보기</a
       >
     </div>
+    <script>
+      const { signIn, signOut } = await import('auth-astro/client')
+      document
+        .getElementById('login')
+        ?.addEventListener('click', () =>
+          signIn('kakao', { redirect: true, callbackUrl: '/' }),
+        )
+    </script>
   </main>
 </Layout>
