@@ -1,5 +1,4 @@
 ---
-import '@/styles/globals.css'
 import { Image } from 'astro:assets'
 import BannerCarousel from '../components/BannerCarousel.tsx'
 import NotificationHeader from '../components/NotificationHeader.tsx'
@@ -11,7 +10,7 @@ import Layout from '../layouts/Layout.astro'
   <main class="px-4 w-full py-1">
     <NotificationHeader client:load />
     <div class="flex items-center gap-2 mt-[30px]">
-      <p>로그인 해주세요</p>
+      <a href="/login">로그인 해주세요</a>
       <Image
         src={IconLoginArrow}
         alt="login arrow"

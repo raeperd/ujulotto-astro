@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets'
+import iconKakaoTalk from '../images/iconKakaoTalk.svg'
+import iconLoginBalls from '../images/iconLoginBalls.svg'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="우주로또">
+  <main class="relative w-full h-full">
+    <Image
+      class="mx-auto mt-[150px]"
+      src={iconLoginBalls}
+      alt="login balls"
+    />
+    <h1 class="text-center mt-[27px] text-xl">
+      당신의 로또 1등번호,<br />우주로또에서 뽑아가세요!
+    </h1>
+    <div class="absolute bottom-[188px] w-full px-4 flex-col flex items-center">
+      <button
+        class="bg-[#fee500] items-center justify-center gap-2.5 flex w-full text-black py-4 rounded-[4px]"
+      >
+        <Image
+          class=""
+          src={iconKakaoTalk}
+          alt="login balls"
+        />
+        <p class="inline text-lg font-semibold">카카오로 계속하기</p>
+      </button>
+      <a
+        class="underline text-[#ededed] text-sm font-medium mt-5"
+        href="/"
+        >비회원으로 둘러보기</a
+      >
+    </div>
+  </main>
+</Layout>
