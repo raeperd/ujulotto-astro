@@ -1,7 +1,7 @@
 ---
 import '@/styles/globals.css'
 import { Image } from 'astro:assets'
-import { CarouselDemo } from '../components/CarouselDemo'
+import BannerCarousel from '../components/BannerCarousel.tsx'
 import NotificationHeader from '../components/NotificationHeader.tsx'
 import IconLoginArrow from '../images/iconLoginArrow.svg'
 import Layout from '../layouts/Layout.astro'
@@ -19,6 +19,6 @@ import Layout from '../layouts/Layout.astro'
         height={16}
       />
     </div>
-    <CarouselDemo client:load />
+    <BannerCarousel client:load />
   </main>
 </Layout>
