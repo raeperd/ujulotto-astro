@@ -1,4 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
   CarouselContent,
@@ -9,22 +8,21 @@ import Autoplay from 'embla-carousel-autoplay'
 export function CarouselDemo() {
   return (
     <Carousel
-      className="w-full px-2 max-w-xs"
+      className="w-full max-w-xs"
       opts={{ loop: true }}
       plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 9992000,
         }),
       ]}
     >
       <CarouselContent>
         {Array.from({ length: 2 }).map((_, index) => (
           <CarouselItem key={index}>
-            <Card>
-              <CardContent className="flex aspect-square items-center justify-center p-2">
-                <span className="text-4xl font-semibold">{index + 1}</span>
-              </CardContent>
-            </Card>
+            <div className="bg-[url(/carousel-location.png)] bg-cover py-4 px-5 rounded-xl">
+              <h2 className="text-lg font-semibold">복권 판매점 쉽게 찾기</h2>
+              <p className="text-xs mt-1">전국 1등 판매점</p>
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>
