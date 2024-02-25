@@ -1,31 +1,60 @@
-import { useState, type ComponentPropsWithoutRef } from 'react'
-import { Carousel, CarouselContent } from './ui/carousel'
+import { type CarouselApi } from '@/components/ui/carousel'
+import { useEffect, useState, type ComponentPropsWithoutRef } from 'react'
+
+import { Carousel, CarouselContent, CarouselItem } from './ui/carousel'
 
 export default function NumberPickCarousel(
   props: ComponentPropsWithoutRef<'article'>,
 ) {
-  const [modeIndex, setModeIndex] = useState(0)
+  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<CarouselApi>()
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCurrent(api.selectedScrollSnap())
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
 
   return (
     <article {...props}>
       <nav className="bg-black py-3 flex gap-2 overflow-scroll [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&::-webkit-scrollbar]:hidden">
         {modes.map((v, i) => (
           <button
-            className={`${modeIndex == i ? 'bg-point' : 'bg-black_2'} ${
+            className={`${current == i ? 'bg-point' : 'bg-black_2'} ${
               i == 0 ? 'border-[1px] border-dashed' : ''
             } p-2 rounded-[35px] font-semibold text-sm flex-shrink-0 `}
-            disabled={modeIndex == i}
-            onClick={() => setModeIndex(i)}
+            disabled={current == i}
+            onClick={() => api?.scrollTo(i)}
           >
             {v.name}
           </button>
         ))}
       </nav>
       <Carousel
-        className="w-full mt-5"
-        opts={{ loop: true, align: 'center' }}
+        className="w-full mt-[30px] px-4"
+        opts={{ loop: true }}
+        setApi={setApi}
       >
-        <CarouselContent></CarouselContent>
+        <CarouselContent>
+          {modes.map((v, i) => (
+            <CarouselItem key={i}>
+              <article className="bg-black px-5 py-[30px] rounded-[14px]">
+                <h2 className="font-bold text-xl">{v.name}</h2>
+                <p className="mt-1.5">{v.description}</p>
+                {/* TODO: fix mt-9 to proper */}
+                <img
+                  className="w-[calc(100%-20px)] mx-auto mt-9"
+                  src={v.cover}
+                  alt={`cover ${v.name}`}
+                />
+              </article>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
       </Carousel>
     </article>
   )
