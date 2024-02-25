@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets'
+import { getSession } from 'auth-astro/server'
+import BannerCarousel from '../components/BannerCarousel.tsx'
+import NotificationHeader from '../components/NotificationHeader.tsx'
+import IconLoginArrow from '../images/iconLoginArrow.svg'
+import Layout from '../layouts/Layout.astro'
+
+const session = await getSession(Astro.request)
+---
+
+<Layout title="우주로또">
+  <main class="px-4 w-full py-1">
+    <NotificationHeader client:load />
+    <div class="flex items-center gap-2 mt-[30px]">
+      {
+        session ? (
+          <p>{`안녕하세요 ${session.user?.name}님`}</p>
+        ) : (
+          <a href="/login">로그인 해주세요</a>
+        )
+      }
+      <Image
+        src={IconLoginArrow}
+        alt="login arrow"
+        width={9}
+        height={16}
+      />
+    </div>
+    <BannerCarousel client:load />
+  </main>
+</Layout>
