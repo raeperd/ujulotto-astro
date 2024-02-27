@@ -21,7 +21,7 @@ export default function NumberPickCarousel(
 
   return (
     <article {...props}>
-      <nav className="bg-black py-3 flex gap-2 overflow-scroll [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&::-webkit-scrollbar]:hidden">
+      <nav className="bg-black py-3 flex gap-2 overflow-scroll [-ms-overflow-style:'none'] [scrollbar-width:'none'] [&::-webkit-scrollbar]:hidden px-4">
         {modes.map((v, i) => (
           <button
             className={`${current == i ? 'bg-point' : 'bg-black_2'} ${
