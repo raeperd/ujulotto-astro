@@ -45,8 +45,7 @@ export default function NumberPickCarousel(
             <CarouselItem key={i}>
               <article className="bg-black px-5 py-[30px] rounded-[14px]">
                 <h2 className="font-bold text-xl">{v.name}</h2>
-                <p className="mt-1.5">{v.description}</p>
-                {/* TODO: fix mt-9 to proper */}
+                <p className="mt-1.5 h-[2em]">{v.description}</p>
                 <img
                   className="w-[calc(100%-20px)] mx-auto mt-9"
                   src={v.cover}
