@@ -51,6 +51,11 @@ export default function NumberPickCarousel(
                   src={v.cover}
                   alt={`cover ${v.name}`}
                 />
+                <a href="/">
+                  <div className="text-black bg-white text-center w-full font-bold text-base py-[14px] rounded-[4px]">
+                    {v.name == '직접조합' ? '직접 뽑기' : '번호 뽑기'}
+                  </div>
+                </a>
               </article>
             </CarouselItem>
           ))}
