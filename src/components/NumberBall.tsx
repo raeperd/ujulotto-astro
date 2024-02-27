@@ -19,7 +19,7 @@ export default function NumberBall(props: NumberBallProps) {
   }
   return (
     <div
-      className={`${className} aspect-square  rounded-full text-center leading-loose`}
+      className={`${className} aspect-square rounded-full text-center leading-loose`}
       style={{
         width: width,
         fontSize: width / 2,

@@ -14,7 +14,7 @@ export function generateNumbersForTimes(
   return numbers
 }
 
-function generateNumbers(mode: GenerationMode) {
+export function generateNumbers(mode: GenerationMode) {
   switch (mode) {
     case '짝홀조합':
       return generateOddEvenNumbers()
