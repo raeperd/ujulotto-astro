@@ -29,6 +29,7 @@ export default function NumberPickCarousel(
             } p-2 rounded-[35px] font-semibold text-sm flex-shrink-0 `}
             disabled={current == i}
             onClick={() => api?.scrollTo(i)}
+            key={i}
           >
             {v.name}
           </button>
