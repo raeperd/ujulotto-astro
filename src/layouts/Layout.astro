@@ -1,11 +1,34 @@
 ---
 import '@/styles/globals.css'
+import { Image } from 'astro:assets'
+import iconHome from '../images/iconHome.svg'
+import iconLocation from '../images/iconLocation.svg'
+import iconStore from '../images/iconStore.svg'
 
 interface Props {
   title: string
 }
 
+const footerItems = [
+  {
+    href: '/',
+    name: '홈',
+    icon: iconHome,
+  },
+  {
+    href: '/numbers',
+    name: '번호저장함',
+    icon: iconStore,
+  },
+  {
+    href: '/location',
+    name: '판매점 찾기',
+    icon: iconLocation,
+  },
+]
+
 const { title } = Astro.props
+const currentPath = Astro.url.pathname
 ---
 
 <!doctype html>
@@ -31,11 +54,29 @@ const { title } = Astro.props
     />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen flex bg-black_2 2">
+  <body class="min-h-screen flex bg-black_2 text-white">
     <div
-      class="lg:max-w-[430px] min-w-[360px] w-full my-auto min-h-screen overflow-scroll lg:border-white lg:border-[1px] lg:mx-auto text-white [&::-webkit-scrollbar]:hidden h-dvh"
+      class="lg:max-w-[430px] min-w-[360px] w-full my-auto min-h-screen overflow-scroll lg:border-white lg:border-[1px] lg:mx-auto [&::-webkit-scrollbar]:hidden h-dvh"
     >
       <slot />
     </div>
+    <footer
+      class="fixed flex items-center justify-center px-9 max-w-[430px] lg:mx-auto bottom-0 inset-x-0 rounded-t-[14px] z-50 w-full h-[70px] bg-opacity-60 bg-black gap-6"
+    >
+      {
+        footerItems.map((v, i) => (
+          <a
+            href={v.href}
+            class={`flex flex-col gap-2 min-w-[72px] items-center justify-between ${currentPath === v.href ? '' : 'opacity-60'}`}
+          >
+            <Image
+              src={v.icon}
+              alt={v.name}
+            />
+            <p class="text-xs">{v.name}</p>
+          </a>
+        ))
+      }
+    </footer>
   </body>
 </html>
