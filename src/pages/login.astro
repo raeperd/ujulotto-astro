@@ -6,16 +6,18 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="우주로또">
-  <main class="relative w-full h-full">
-    <Image
-      class="mx-auto mt-[150px]"
-      src={iconLoginBalls}
-      alt="login balls"
-    />
-    <h1 class="text-center mt-[27px] text-xl">
-      당신의 로또 1등번호,<br />우주로또에서 뽑아가세요!
-    </h1>
-    <div class="absolute bottom-[188px] w-full px-4 flex-col flex items-center">
+  <main class="w-full h-dvh flex flex-col justify-between pb-[100px]">
+    <div>
+      <Image
+        class="mx-auto mt-[150px]"
+        src={iconLoginBalls}
+        alt="login balls"
+      />
+      <h1 class="text-center mt-[27px] text-xl">
+        당신의 로또 1등번호,<br />우주로또에서 뽑아가세요!
+      </h1>
+    </div>
+    <div class="w-full px-4 flex-col flex items-center">
       <button
         id="login"
         class="bg-[#fee500] items-center justify-center gap-2.5 flex w-full text-black py-4 rounded-[4px]"
