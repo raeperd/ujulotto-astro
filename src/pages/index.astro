@@ -7,6 +7,7 @@ import NumberPickCarousel from '../components/NumberPickCarousel.tsx'
 import IconLoginArrow from '../images/iconLoginArrow.svg'
 import Layout from '../layouts/Layout.astro'
 
+export const prerender = true
 const session = await getSession(Astro.request)
 ---
 

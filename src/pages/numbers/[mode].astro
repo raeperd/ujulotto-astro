@@ -5,6 +5,8 @@ import iconBack from '../../images/iconBack.svg'
 import { Image } from 'astro:assets'
 import NumberBoard from '../../components/NumberBoard'
 
+export const prerender = true
+
 export function getStaticPaths() {
   return generationModeSchema.options.map((mode) => {
     return {
