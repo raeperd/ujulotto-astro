@@ -16,13 +16,13 @@ export function generateNumbersForTimes(
 
 export function generateNumbers(mode: GenerationMode) {
   switch (mode) {
-    case '짝홀조합':
+    case 'odd-even':
       return generateOddEvenNumbers()
-    case '랜덤뽑기':
-    case '직접조합':
-    case '우주추천':
-    case '미출현 번호':
-    case '1등 번호기반':
+    case 'self':
+    case 'random':
+    case 'universe':
+    case 'missing':
+    case 'winner-based':
       return generateRandomNumbers()
   }
 }
