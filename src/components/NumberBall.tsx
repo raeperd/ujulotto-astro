@@ -33,7 +33,7 @@ export default function NumberBall(props: NumberBallProps) {
   )
 }
 
-interface NumberBallProps extends ComponentPropsWithoutRef<'div'> {
+export interface NumberBallProps extends ComponentPropsWithoutRef<'div'> {
   number: number
   width: number
   background?: string

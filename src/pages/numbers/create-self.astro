@@ -1,9 +1,12 @@
 ---
+import BackwordNavigator from '../../components/BackwordNavigator.astro'
+import SelfPickBoard from '../../components/SelfPickBoard'
 import Layout from '../../layouts/Layout.astro'
 ---
 
 <Layout title="우주로또">
-  <main class="bg-point h-dvh">
-    <div>직접생성</div>
+  <main class="bg-point h-dvh px-4">
+    <BackwordNavigator>직접생성</BackwordNavigator>
+    <SelfPickBoard client:load />
   </main>
 </Layout>

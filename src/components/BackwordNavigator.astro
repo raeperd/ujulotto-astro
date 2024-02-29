@@ -3,7 +3,10 @@ import iconBack from '../images/iconBack.svg'
 import { Image } from 'astro:assets'
 ---
 
-<button onclick="history.back()">
+<button
+  onclick="history.back()"
+  class="flex items-center h-[50px] gap-5"
+>
   <Image
     src={iconBack}
     alt="icon back"
