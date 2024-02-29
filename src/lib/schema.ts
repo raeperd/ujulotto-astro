@@ -75,7 +75,7 @@ export const verificationTokens = mysqlTable(
 
 export const numbers = mysqlTable('numbers', {
   id: int('id').primaryKey().autoincrement(),
-  createdBy: varchar('createdBy', { length: 255 }),
+  createdBy: varchar('createdBy', { length: 255 }).notNull(),
   mode: varchar('mode', { length: 10 }).notNull(),
   numbers: varchar('numbers', { length: 300 }).notNull(),
   createdAt: timestamp('createdAt').default(sql`CURRENT_TIMESTAMP`),
