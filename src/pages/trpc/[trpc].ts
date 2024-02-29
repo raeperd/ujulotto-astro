@@ -9,5 +9,8 @@ export const ALL: APIRoute = (opts) => {
     req: opts.request,
     router: appRouter,
     createContext,
+    onError(err) {
+      console.error('TRPC error:', err)
+    },
   })
 }

@@ -1,10 +1,29 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useEffect, useState } from 'react'
 import { generateNumbersForTimes } from '../lib/number'
+import { reactClient } from '../lib/trpc/client'
 import type { GenerationMode } from '../lib/type'
 import NumberBall from './NumberBall'
+import TRPCProvider from './TRPCProvider'
 
 export default function NumberBoard({
+  mode,
+  date,
+}: {
+  mode: GenerationMode
+  date: string
+}) {
+  return (
+    <TRPCProvider>
+      <NumberBoardInner
+        mode={mode}
+        date={date}
+      />
+    </TRPCProvider>
+  )
+}
+
+function NumberBoardInner({
   mode,
   date,
 }: {
@@ -23,6 +42,9 @@ export default function NumberBoard({
     }, 200)
     return () => clearTimeout(interval)
   }, [mode, numbers])
+
+  const { mutate: createUserNumbers } =
+    reactClient.createUserNumbers.useMutation()
 
   return (
     <>
@@ -56,7 +78,10 @@ export default function NumberBoard({
           {
             text: '번호 저장하기',
             className: 'bg-point',
-            handleClick: () => alert('todo'),
+            handleClick: () => {
+              createUserNumbers({ mode, numbers })
+              alert('저장되었습니다.')
+            },
           },
         ].map((item, index) => (
           <button

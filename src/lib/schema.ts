@@ -1,4 +1,5 @@
 import type { AdapterAccount } from '@auth/core/adapters'
+import { relations, sql } from 'drizzle-orm'
 import {
   int,
   mysqlTableCreator,
@@ -71,3 +72,18 @@ export const verificationTokens = mysqlTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 )
+
+export const numbers = mysqlTable('numbers', {
+  id: int('id').primaryKey().autoincrement(),
+  createdBy: varchar('createdBy', { length: 255 }),
+  mode: varchar('mode', { length: 10 }).notNull(),
+  numbers: varchar('numbers', { length: 300 }).notNull(),
+  createdAt: timestamp('createdAt').default(sql`CURRENT_TIMESTAMP`),
+})
+
+export const numbersToUser = relations(numbers, ({ one }) => ({
+  create: one(users, {
+    fields: [numbers.createdBy],
+    references: [users.id],
+  }),
+}))
