@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from '@trpc/server'
 import { desc, eq } from 'drizzle-orm'
 import { ZodError, z } from 'zod'
-import { numbers } from '../schema'
+import { numbers } from '../db/schema'
 import { generationModeSchema } from '../type'
 import type { Context } from './context'
 

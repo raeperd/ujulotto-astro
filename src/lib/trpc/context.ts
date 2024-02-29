@@ -1,6 +1,6 @@
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 import { getSession } from 'auth-astro/server'
-import { db } from '../db'
+import { db } from '../db/db'
 
 export async function createContext({
   req,

@@ -1,8 +1,8 @@
+import { db } from '@/lib/db/db'
+import { mysqlTable } from '@/lib/db/schema'
 import Kakao from '@auth/core/providers/kakao'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import { defineConfig } from 'auth-astro'
-import { db } from 'src/lib/db'
-import { mysqlTable } from 'src/lib/schema'
 
 export default defineConfig({
   adapter: DrizzleAdapter(db, mysqlTable),
