@@ -21,16 +21,17 @@ const t = initTRPC.context<Context>().create({
 const publicProcedure = t.procedure
 const protectedProcedure = t.procedure.use(
   t.middleware(async ({ ctx, next }) => {
-    if (!ctx.session?.user) {
+    const currentUser = ctx.session?.user
+    if (!currentUser?.id) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
-        message: '로그인이 필요합니다.',
+        message: `로그인이 필요합니다. ${JSON.stringify(ctx.session)}`,
       })
     }
     return next({
       ctx: {
-        ...ctx,
-        user: ctx.session.user,
+        db: ctx.db,
+        user: currentUser,
       },
     })
   }),
@@ -61,7 +62,7 @@ export const appRouter = t.router({
 
   getUserNumbers: protectedProcedure.query(async ({ ctx }) => {
     const userNumbers = await ctx.db.query.numbers.findMany({
-      where: eq(numbers.createdBy, ctx.user?.id),
+      where: eq(numbers.createdBy, ctx.user.id),
     })
     return userNumbers.map((userNumber) => ({
       ...userNumber,

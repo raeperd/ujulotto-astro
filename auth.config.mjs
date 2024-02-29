@@ -12,4 +12,13 @@ export default defineConfig({
       clientSecret: import.meta.env.KAKAO_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+      },
+    }),
+  },
 })
