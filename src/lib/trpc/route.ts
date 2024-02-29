@@ -74,11 +74,16 @@ export const appRouter = t.router({
     const results = await ctx.db.query.numbers.findMany({
       orderBy: [desc(numbers.id)],
       limit: 10,
+      with: {
+        create: true,
+      },
     })
     return results.map((number) => ({
-      ...number,
+      id: number.id,
+      mode: number.mode,
       numbers: number.numbers.split(',').map((num) => parseInt(num)),
       createdAt: number.createdAt ?? new Date(),
+      createdBy: number.create.name ?? 'unknown',
     }))
   }),
 })
