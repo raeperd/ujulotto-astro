@@ -36,7 +36,7 @@ export default function NumberPickCarousel(
         ))}
       </nav>
       <Carousel
-        className="w-full mt-[30px] px-4"
+        className="w-full my-[30px] px-4"
         opts={{ loop: true }}
         setApi={setApi}
       >

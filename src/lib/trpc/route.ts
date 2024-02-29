@@ -1,5 +1,5 @@
 import { TRPCError, initTRPC } from '@trpc/server'
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { ZodError, z } from 'zod'
 import { numbers } from '../schema'
 import { generationModeSchema } from '../type'
@@ -67,6 +67,18 @@ export const appRouter = t.router({
     return userNumbers.map((userNumber) => ({
       ...userNumber,
       numbers: userNumber.numbers.split(',').map((num) => parseInt(num)),
+    }))
+  }),
+
+  getAllNumbers: publicProcedure.query(async ({ ctx }) => {
+    const results = await ctx.db.query.numbers.findMany({
+      orderBy: [desc(numbers.id)],
+      limit: 10,
+    })
+    return results.map((number) => ({
+      ...number,
+      numbers: number.numbers.split(',').map((num) => parseInt(num)),
+      createdAt: number.createdAt ?? new Date(),
     }))
   }),
 })

@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets'
-import { getSession } from 'auth-astro/server'
 import BannerCarousel from '../components/BannerCarousel.tsx'
 import NotificationHeader from '../components/NotificationHeader.tsx'
 import NumberPickCarousel from '../components/NumberPickCarousel.tsx'
 import IconLoginArrow from '../images/iconLoginArrow.svg'
 import Layout from '../layouts/Layout.astro'
+import NumberThread from '../components/NumberThread.tsx'
 
 export const prerender = true
 // const session = await getSession(Astro.request)
@@ -31,6 +31,11 @@ export const prerender = true
     </div>
     <NumberPickCarousel
       className="mt-7"
+      client:load
+    />
+    <div class="w-full bg-gray_5 h-1"></div>
+    <NumberThread
+      className="px-4"
       client:load
     />
   </main>
