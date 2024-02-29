@@ -1,9 +1,8 @@
 ---
+import BackwordNavigator from '../../components/BackwordNavigator.astro'
+import NumberBoard from '../../components/NumberBoard'
 import Layout from '../../layouts/Layout.astro'
 import { generationModeSchema } from '../../lib/type'
-import iconBack from '../../images/iconBack.svg'
-import { Image } from 'astro:assets'
-import NumberBoard from '../../components/NumberBoard'
 
 export const prerender = true
 
@@ -29,14 +28,7 @@ const formatNow = () => {
 
 <Layout title="우주로또">
   <main class="m-4">
-    <button onclick="history.back()">
-      <Image
-        src={iconBack}
-        alt="icon back"
-        width={10}
-        height={16.67}
-      />
-    </button>
+    <BackwordNavigator />
     <NumberBoard
       client:load
       mode={mode}

@@ -2,7 +2,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { useEffect, useState } from 'react'
 import { generateNumbersForTimes } from '../lib/number'
 import { reactClient } from '../lib/trpc/client'
-import type { GenerationMode } from '../lib/type'
+import { textFromMode, type GenerationMode } from '../lib/type'
 import NumberBall from './NumberBall'
 import TRPCProvider from './TRPCProvider'
 
@@ -50,7 +50,7 @@ function NumberBoardInner({
     <>
       <article className="w-full py-10 px-12 bg-gradient-to-r from-[#D6C3FF] from-[-5.85%] to-[#7C91FF] to-[80.85%] rounded-[20px]">
         <h1 className="text-white text-center font-semibold text-2xl">
-          {mode}
+          {textFromMode(mode)}
         </h1>
         <p className="text-center mt-4">{date}</p>
         <div className="flex justify-center">

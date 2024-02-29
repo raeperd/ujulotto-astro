@@ -1,0 +1,14 @@
+---
+import iconBack from '../images/iconBack.svg'
+import { Image } from 'astro:assets'
+---
+
+<button onclick="history.back()">
+  <Image
+    src={iconBack}
+    alt="icon back"
+    width={10}
+    height={16.67}
+  />
+  <slot />
+</button>
