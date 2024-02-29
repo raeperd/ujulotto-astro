@@ -14,7 +14,7 @@ export default function SelfPickBoard() {
   const rowLabels = ['A', 'B', 'C', 'D', 'E']
   return (
     <article>
-      <div className="bg-white flex flex-col items-center pl-5 py-5 pr-4 rounded-[14px]">
+      <div className="bg-white flex flex-col items-center pl-5 py-5 pr-4 rounded-[14px] gap-2.5">
         {rowLabels.map((label, i) => (
           <div
             className="flex items-center gap-3.5"
@@ -41,21 +41,52 @@ export default function SelfPickBoard() {
                 ></NumberBallOrEmpty>
               ))}
             </button>
-            <IconRefresh
-              className={`${index == i ? 'fill-[#474747]' : 'fill-[#f3f3f9]'}`}
-            ></IconRefresh>
+            <button
+              onClick={() =>
+                setNumbers((prev) => {
+                  const next = [...prev]
+                  next[i] = Array.from({ length: 6 }, () => 46)
+                  return next
+                })
+              }
+              disabled={index != i}
+            >
+              <IconRefresh
+                className={`${
+                  index == i ? 'fill-[#474747]' : 'fill-[#f3f3f9]'
+                }`}
+              ></IconRefresh>
+            </button>
           </div>
         ))}
       </div>
       <div className="bg-[#242429] grid grid-cols-7 mt-2.5 px-5 pt-5 pb-[34px] rounded-[14px] gap-2">
-        {Array.from({ length: 45 }, (_, i) => i + 1).map((v) => (
-          <NumberBall
-            className="font-bold"
-            width={34}
-            number={v}
-            background="#1b1c20"
-            color="white"
-          ></NumberBall>
+        {Array.from({ length: 45 }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              const included = numbers[index].includes(i + 1)
+              setNumbers((prev) => {
+                const next = [...prev]
+                next[index] = included
+                  ? prev[index].filter((number) => number !== i + 1)
+                  : [...prev[index], i + 1]
+                return next
+              })
+            }}
+            disabled={
+              numbers[index].length == 12 &&
+              numbers[index].includes(i + 1) == false
+            }
+          >
+            <NumberBall
+              className="font-bold"
+              width={34}
+              number={i + 1}
+              background={numbers[index].includes(i + 1) ? 'white' : '#1b1c20'}
+              color={numbers[index].includes(i + 1) ? '#1b1c20' : 'white'}
+            ></NumberBall>
+          </button>
         ))}
       </div>
     </article>
