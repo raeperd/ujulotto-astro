@@ -47,7 +47,7 @@ export default function NumberPickCarousel(
                 <h2 className="font-bold text-xl">{v.name}</h2>
                 <p className="mt-1.5 h-[2em]">{v.description}</p>
                 <img
-                  className="w-[calc(100%-20px)] mx-auto mt-9"
+                  className="w-[calc(100%-20px)] mx-auto mt-9 mb-4"
                   src={v.cover}
                   alt={`cover ${v.name}`}
                 />
