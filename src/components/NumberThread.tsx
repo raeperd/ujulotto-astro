@@ -48,12 +48,12 @@ function NumberThreadItem(props: NumberThreadItemProps) {
   return (
     <li className="bg-[#373843] flex items-center justify-between rounded-[4px] py-3 px-5">
       <div>
-        <p>{props.createdBy.slice(0, 8)}</p>
-        <time>{formatDate(props.createdAt)}</time>
+        <p className="font-medium">{props.createdBy.slice(0, 8)}</p>
+        <time className="text-xs">{formatDate(props.createdAt)}</time>
       </div>
       <div className="flex gap-1.5">
         {props.numbers
-          .filter((_, i) => i <= 6)
+          .filter((_, i) => i < 6)
           .map((n) => (
             <NumberBall
               key={n}
@@ -69,7 +69,7 @@ function NumberThreadItem(props: NumberThreadItemProps) {
 const formatDate = (d: string) => {
   const date = new Date(d)
   return (
-    date.getFullYear() +
+    date.getFullYear().toString().slice(2, 4) +
     '.' +
     (date.getMonth() + 1).toString().padStart(2, '0') +
     '.' +
