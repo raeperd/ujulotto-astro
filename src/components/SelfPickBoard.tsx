@@ -116,10 +116,20 @@ export default function SelfPickBoard() {
             자동
           </button>
           <button
-            className={`flex items-center gap-3 bg-[#474747] rounded-[4px] py-1.5 px-4 ${
+            className={`flex items-center gap-3 rounded-[4px] py-1.5 px-4 ${
               numbers[index].length == 12 ? '' : 'opacity-40'
+            } ${
+              numbers.every((row) => row.length == 12)
+                ? 'bg-point'
+                : 'bg-[#474747]'
             }`}
-            onClick={() => setIndex((prev) => (prev + 1) % rowLabels.length)}
+            onClick={() => {
+              if (numbers.every((row) => row.length == 12)) {
+                location.href = '/numbers/self'
+                return
+              }
+              setIndex((prev) => (prev + 1) % rowLabels.length)
+            }}
             disabled={numbers[index].length != 12}
           >
             다음
