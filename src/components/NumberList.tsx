@@ -31,7 +31,9 @@ function NumberListInner() {
 
   return (
     <article className={`${toggle ? 'opacity-60' : ''}`}>
-      <h1 className="font-medium text-xl h-[50px] py-[15px]">{`번호저장함 ${data?.length}`}</h1>
+      <h1 className="font-medium text-xl h-[50px] py-[15px]">{`번호저장함 ${
+        data ? data.length : '0'
+      }`}</h1>
       <DropdownMenu onOpenChange={(v) => setToggle(v)}>
         <DropdownMenuTrigger asChild>
           <button className="translate-x-[calc(100%-25px)] w-full">
@@ -56,7 +58,8 @@ function NumberListInner() {
               v.mode == 'universe'
                 ? 'bg-[url(/cover-number-universe-item.svg)]'
                 : 'bg-[url(/cover-number-item.svg)]'
-            } relative bg-cover bg-center rounded-[20px] bg-no-repeat pt-5 pb-10 pl-5`}
+            } relative cursor-pointer bg-cover bg-center rounded-[20px] bg-no-repeat pt-5 pb-10 pl-5`}
+            onClick={() => (location.href = `/numbers/${v.id}`)}
           >
             <h2 className="font-semibold text-2xl">
               {textFromMode(v.mode as GenerationMode)}

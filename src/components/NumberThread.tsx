@@ -46,7 +46,10 @@ type NumberThreadItemProps = inferRouterOutputs<AppRouter>['getAllNumbers'][0]
 
 function NumberThreadItem(props: NumberThreadItemProps) {
   return (
-    <li className="bg-[#373843] flex items-center justify-between rounded-[4px] py-3 px-5">
+    <li
+      className="bg-[#373843] flex items-center justify-between rounded-[4px] py-3 px-5 cursor-pointer"
+      onClick={() => (location.href = `/numbers/${props.id}`)}
+    >
       <div>
         <p className="font-medium">{props.createdBy.slice(0, 8)}</p>
         <time className="text-xs">{formatDate(props.createdAt)}</time>
