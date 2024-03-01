@@ -73,7 +73,13 @@ function NumberBoardInner({
           {
             text: '다시뽑기',
             className: 'bg-gray_5',
-            handleClick: () => setNumbers([]),
+            handleClick: () => {
+              if (mode == 'self') {
+                location.href = `/numbers/create/self-board`
+              } else {
+                setNumbers([])
+              }
+            },
           },
           {
             text: '번호 저장하기',
