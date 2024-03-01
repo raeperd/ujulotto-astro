@@ -15,10 +15,13 @@ export async function createContextInner(opts?: CreateInnerContextOptions) {
   }
 }
 
-export async function createContext({ req }: FetchCreateContextFnOptions) {
+export async function createContext({
+  req,
+  resHeaders,
+}: FetchCreateContextFnOptions) {
   const session = await getSession(req)
   const contextInner = await createContextInner({ session })
-  return { ...contextInner }
+  return { ...contextInner, req: req, resHeaders: resHeaders }
 }
 
-export type Context = Awaited<ReturnType<typeof createContext>>
+export type Context = Awaited<ReturnType<typeof createContextInner>>

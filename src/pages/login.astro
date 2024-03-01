@@ -38,7 +38,7 @@ export const prerender = true
       >
     </div>
     <script>
-      const { signIn, signOut } = await import('auth-astro/client')
+      const { signIn } = await import('auth-astro/client')
       document
         .getElementById('login')
         ?.addEventListener('click', () =>

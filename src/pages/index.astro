@@ -1,32 +1,19 @@
 ---
-import { Image } from 'astro:assets'
 import BannerCarousel from '../components/BannerCarousel.tsx'
+import HelloUserBar from '../components/HelloUserBar.tsx'
 import NotificationHeader from '../components/NotificationHeader.tsx'
 import NumberPickCarousel from '../components/NumberPickCarousel.tsx'
-import IconLoginArrow from '../images/iconLoginArrow.svg'
-import Layout from '../layouts/Layout.astro'
 import NumberThread from '../components/NumberThread.tsx'
+import Layout from '../layouts/Layout.astro'
 
 export const prerender = true
-// const session = await getSession(Astro.request)
 ---
 
 <Layout title="우주로또">
   <main class="w-full py-1">
     <div class="px-4">
       <NotificationHeader client:load />
-      <div
-        class="flex items-center gap-2 mt-[30px]"
-        id="hello"
-      >
-        <a href="/login">로그인 해주세요</a>
-        <Image
-          src={IconLoginArrow}
-          alt="login arrow"
-          width={9}
-          height={16}
-        />
-      </div>
+      <HelloUserBar client:load />
       <BannerCarousel client:load />
     </div>
     <NumberPickCarousel
@@ -40,12 +27,3 @@ export const prerender = true
     />
   </main>
 </Layout>
-
-<script>
-  import { client } from '../lib/trpc/client'
-  const div = (document.getElementById('hello') as HTMLDivElement) ?? null
-  const user = await client.getCurrentUser.query()
-  if (user) {
-    div.innerHTML = `<p>안녕하세요 ${user.name}님</p>`
-  }
-</script>
