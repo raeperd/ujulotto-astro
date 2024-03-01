@@ -125,7 +125,7 @@ export default function SelfPickBoard() {
             }`}
             onClick={() => {
               if (numbers.every((row) => row.length == 12)) {
-                location.href = '/numbers/self'
+                location.href = '/numbers/create/self'
                 return
               }
               setIndex((prev) => (prev + 1) % rowLabels.length)

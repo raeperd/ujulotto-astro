@@ -53,7 +53,9 @@ export default function NumberPickCarousel(
                   alt={`cover ${v.mode}`}
                 />
                 <a
-                  href={`/numbers/${v.mode == 'self' ? 'create-self' : v.mode}`}
+                  href={`/numbers/create/${
+                    v.mode == 'self' ? 'self-board' : v.mode
+                  }`}
                 >
                   <div className="text-black bg-white text-center w-full font-bold text-base py-[14px] rounded-[4px]">
                     {v.mode == 'self' ? '직접 뽑기' : '번호 뽑기'}
