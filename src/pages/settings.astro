@@ -2,6 +2,7 @@
 import { getSession } from 'auth-astro/server'
 import Layout from '../layouts/Layout.astro'
 import BackwordNavigator from '../components/BackwordNavigator.astro'
+import UsernameChangeInput from '../components/UsernameChangeInput'
 
 const session = await getSession(Astro.request)
 
@@ -14,19 +15,7 @@ export const prerender = true
     <p>로그인된 계정</p>
     <p class="font-semibold text-lg pt-1.5">{session?.user?.name}</p>
     <p class="text-[#474747] mt-5">닉네임</p>
-    <div class="flex">
-      <input
-        type="text"
-        class="block w-full rounded-[10px] bg-[#242429] placeholder:px-4"
-        placeholder={session?.user?.name}
-      />
-      <button
-        type="button"
-        class="rounded bg-[#242429] px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >수정</button
-      >
-    </div>
-
+    <UsernameChangeInput client:load />
     <div class="w-full bg-[#242429] h-1 mt-14"></div>
     <p class="py-4">서비스 이용약관</p>
     <div class="w-full bg-[#242429] h-1"></div>

@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from '@trpc/server'
 import { desc, eq, inArray } from 'drizzle-orm'
 import { ZodError, z } from 'zod'
-import { numbers } from '../db/schema'
+import { numbers, users } from '../db/schema'
 import { generationModeSchema } from '../type'
 import { createContextInner, type Context } from './context'
 
@@ -41,6 +41,16 @@ const { router, createCallerFactory } = t
 
 export const appRouter = router({
   getCurrentUser: publicProcedure.query(({ ctx }) => ctx.session?.user),
+
+  setUsername: protectedProcedure
+    .input(z.object({ username: z.string() }))
+    .mutation(({ input, ctx }) => {
+      console.log('input.username:', input.username)
+      return ctx.db
+        .update(users)
+        .set({ name: input.username })
+        .where(eq(users.id, ctx.user.id))
+    }),
 
   createUserNumbers: protectedProcedure
     .input(
