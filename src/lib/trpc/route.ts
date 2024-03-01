@@ -3,7 +3,7 @@ import { desc, eq } from 'drizzle-orm'
 import { ZodError, z } from 'zod'
 import { numbers } from '../db/schema'
 import { generationModeSchema } from '../type'
-import type { Context } from './context'
+import { createContextInner, type Context } from './context'
 
 const t = initTRPC.context<Context>().create({
   errorFormatter({ shape, error }) {
@@ -37,7 +37,9 @@ const protectedProcedure = t.procedure.use(
   }),
 )
 
-export const appRouter = t.router({
+const { router, createCallerFactory } = t
+
+export const appRouter = router({
   getCurrentUser: publicProcedure.query(({ ctx }) => ctx.session?.user),
 
   createUserNumbers: protectedProcedure
@@ -95,6 +97,8 @@ export const appRouter = t.router({
       })
     }),
 })
+
+export const caller = createCallerFactory(appRouter)(await createContextInner())
 
 // export type definition of API
 export type AppRouter = typeof appRouter
