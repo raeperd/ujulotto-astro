@@ -1,5 +1,5 @@
 import { TRPCError, initTRPC } from '@trpc/server'
-import { desc, eq } from 'drizzle-orm'
+import { desc, eq, inArray } from 'drizzle-orm'
 import { ZodError, z } from 'zod'
 import { numbers } from '../db/schema'
 import { generationModeSchema } from '../type'
@@ -95,6 +95,12 @@ export const appRouter = router({
       return ctx.db.query.numbers.findFirst({
         where: eq(numbers.id, input.id),
       })
+    }),
+
+  deleteNumbersByIds: protectedProcedure
+    .input(z.object({ ids: z.array(z.number()) }))
+    .mutation(({ input, ctx }) => {
+      return ctx.db.delete(numbers).where(inArray(numbers.id, input.ids))
     }),
 })
 

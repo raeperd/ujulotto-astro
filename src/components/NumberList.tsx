@@ -1,7 +1,15 @@
-import type { SVGProps } from 'react'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useState, type SVGProps } from 'react'
 import { reactClient } from '../lib/trpc/client'
 import { textFromMode, type GenerationMode } from '../lib/type'
 import TRPCProvider from './TRPCProvider'
+import { Checkbox } from './ui/checkbox'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
 
 export default function NumberList() {
   return (
@@ -12,15 +20,35 @@ export default function NumberList() {
 }
 
 function NumberListInner() {
-  const { data } = reactClient.getUserNumbers.useQuery()
+  const [toggle, setToggle] = useState(false)
+  const [toggleDelete, setToggleDelete] = useState(false)
+  const [idsToDelete, setIdsToDelete] = useState<number[]>([])
+  const { data, refetch } = reactClient.getUserNumbers.useQuery()
+  const { mutate: deleteNumbersByIds } =
+    reactClient.deleteNumbersByIds.useMutation()
+
+  const [parent] = useAutoAnimate({ duration: 100 })
 
   return (
-    <article>
+    <article className={`${toggle ? 'opacity-60' : ''}`}>
       <h1 className="font-medium text-xl h-[50px] py-[15px]">{`번호저장함 ${data?.length}`}</h1>
-      <button className="translate-x-[calc(100%-25px)] w-full">
-        <IconSettings></IconSettings>
-      </button>
-      <ol className="flex gap-2.5 flex-col w-full mt-5">
+      <DropdownMenu onOpenChange={(v) => setToggle(v)}>
+        <DropdownMenuTrigger asChild>
+          <button className="translate-x-[calc(100%-25px)] w-full">
+            <IconSettings></IconSettings>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="flex flex-col items-center font-semibold">
+          <DropdownMenuItem onSelect={() => setToggleDelete((v) => !v)}>
+            선택 삭제하기
+          </DropdownMenuItem>
+          <DropdownMenuItem>전체삭제</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <ol
+        ref={parent}
+        className="flex gap-2.5 flex-col w-full mt-5"
+      >
         {data?.map((v, i) => (
           <li
             key={v.id}
@@ -28,15 +56,37 @@ function NumberListInner() {
               v.mode == 'universe'
                 ? 'bg-[url(/cover-number-universe-item.svg)]'
                 : 'bg-[url(/cover-number-item.svg)]'
-            }  bg-cover bg-center rounded-[20px] bg-no-repeat pt-5 pb-10 pl-5`}
+            } relative bg-cover bg-center rounded-[20px] bg-no-repeat pt-5 pb-10 pl-5`}
           >
             <h2 className="font-semibold text-2xl">
               {textFromMode(v.mode as GenerationMode)}
             </h2>
             <time>{formatDate(v.createdAt)} 생성</time>
+            {toggleDelete && (
+              <Checkbox
+                className="absolute top-2.5 right-2.5 data-[state=checked]:bg-point bg-white rounded-full w-6 h-6"
+                onCheckedChange={(c) =>
+                  setIdsToDelete((prev) => {
+                    if (c) {
+                      return [...prev, v.id]
+                    }
+                    return prev.filter((id) => id !== v.id)
+                  })
+                }
+              />
+            )}
           </li>
         ))}
       </ol>
+      {idsToDelete.length > 0 && (
+        <button
+          onClick={() => {
+            deleteNumbersByIds({ ids: idsToDelete })
+            refetch()
+          }}
+          className="w-[calc(100%-32px)] lg:max-w-[calc(430px-32px)] fixed bottom-[90px] inset-x-0 mx-auto font-semibold rounded-[20px] py-[14px] bg-point"
+        >{`삭제하기 (${idsToDelete.length})`}</button>
+      )}
     </article>
   )
 }
