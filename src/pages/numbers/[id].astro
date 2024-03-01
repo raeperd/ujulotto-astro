@@ -1,0 +1,17 @@
+---
+import BackwordNavigator from '../../components/BackwordNavigator.astro'
+import { NumberBoardById } from '../../components/NumberBoard'
+import Layout from '../../layouts/Layout.astro'
+
+const { id } = Astro.params
+---
+
+<Layout title="우주로또">
+  <main class="m-4">
+    <BackwordNavigator />
+    <NumberBoardById
+      client:load
+      id={parseInt(id ?? '0')}
+    />
+  </main>
+</Layout>

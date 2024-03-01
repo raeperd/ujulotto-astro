@@ -9,28 +9,65 @@ import TRPCProvider from './TRPCProvider'
 export default function NumberBoard({
   mode,
   date,
+  defaultNumbers,
 }: {
   mode: GenerationMode
   date: string
+  defaultNumbers: number[]
 }) {
   return (
     <TRPCProvider>
       <NumberBoardInner
         mode={mode}
         date={date}
+        defaultNumbers={defaultNumbers}
       />
     </TRPCProvider>
   )
 }
 
+export function NumberBoardById({ id }: { id: number }) {
+  return (
+    <TRPCProvider>
+      <NumberBoardByIdInner id={id} />
+    </TRPCProvider>
+  )
+}
+
+function NumberBoardByIdInner({ id }: { id: number }) {
+  const { data } = reactClient.getNumbersById.useQuery({ id })
+  if (!data) {
+    return <div>로딩중...</div>
+  }
+  return (
+    <NumberBoard
+      mode={data.mode as GenerationMode}
+      date={format(data.createdAt)}
+      defaultNumbers={data.numbers.split(',').map(Number)}
+    />
+  )
+}
+
+const format = (d: string | null) => {
+  const date = new Date()
+  if (d) {
+    date.setTime(Date.parse(d))
+  }
+  return `${date.getFullYear()}년 ${
+    date.getMonth() + 1
+  }월 ${date.getDate()}일 생성`
+}
+
 function NumberBoardInner({
   mode,
   date,
+  defaultNumbers,
 }: {
   mode: GenerationMode
   date: string
+  defaultNumbers: number[]
 }) {
-  const [numbers, setNumbers] = useState<number[]>([])
+  const [numbers, setNumbers] = useState<number[]>(defaultNumbers)
   const [parent] = useAutoAnimate({ duration: 100 })
 
   useEffect(() => {

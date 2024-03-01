@@ -86,6 +86,14 @@ export const appRouter = t.router({
       createdBy: number.create.name ?? 'unknown',
     }))
   }),
+
+  getNumbersById: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.query.numbers.findFirst({
+        where: eq(numbers.id, input.id),
+      })
+    }),
 })
 
 // export type definition of API
