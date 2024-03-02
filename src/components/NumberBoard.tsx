@@ -85,7 +85,13 @@ function NumberBoardInner({
 
   return (
     <>
-      <article className="w-full py-10 px-12 bg-gradient-to-r from-[#D6C3FF] from-[-5.85%] to-[#7C91FF] to-[80.85%] rounded-[20px]">
+      <article
+        className={`w-full py-10 px-12 bg-gradient-to-r from-[#D6C3FF] from-[-5.85%] to-[#7C91FF] to-[80.85%] rounded-[20px] ${
+          mode == 'universe'
+            ? 'bg-[url(/cover-universe-pick-bg.png)] bg-cover'
+            : ''
+        }`}
+      >
         <h1 className="text-white text-center font-semibold text-2xl">
           {textFromMode(mode)}
         </h1>
