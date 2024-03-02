@@ -10,9 +10,9 @@ export const prerender = true
 ---
 
 <Layout title="우주로또">
-  <BackwordNavigator>환경설정</BackwordNavigator>
-  <main class="pt-5 px-4">
-    <p>로그인된 계정</p>
+  <main class="px-4">
+    <BackwordNavigator>환경설정</BackwordNavigator>
+    <p class="mt-5">로그인된 계정</p>
     <p class="font-semibold text-lg pt-1.5">{session?.user?.name}</p>
     <p class="text-[#474747] mt-5">닉네임</p>
     <UsernameChangeInput client:load />
