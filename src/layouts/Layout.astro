@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css'
 import { Image } from 'astro:assets'
+import { ViewTransitions } from 'astro:transitions'
 import iconHome from '../images/iconHome.svg'
 import iconLocation from '../images/iconLocation.svg'
 import iconStore from '../images/iconStore.svg'
@@ -53,6 +54,7 @@ const currentPath = Astro.url.pathname
       content={Astro.generator}
     />
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body class="min-h-screen flex bg-black_2 text-white">
     <div
