@@ -2,6 +2,7 @@
 import '@/styles/globals.css'
 import { Image } from 'astro:assets'
 import { ViewTransitions } from 'astro:transitions'
+import { pwaInfo } from 'virtual:pwa-info'
 import iconHome from '../images/iconHome.svg'
 import iconLocation from '../images/iconLocation.svg'
 import iconStore from '../images/iconStore.svg'
@@ -42,7 +43,7 @@ const currentPath = Astro.url.pathname
     />
     <meta
       name="description"
-      content="Astro description"
+      content="1등 번호를 뽑아보세요!"
     />
     <link
       rel="icon"
@@ -53,8 +54,24 @@ const currentPath = Astro.url.pathname
       name="generator"
       content={Astro.generator}
     />
+    <link
+      rel="icon"
+      href="/favicon.ico"
+      sizes="48x48"
+    />
+    <link
+      rel="icon"
+      href="/favicon.svg"
+      sizes="any"
+      type="image/svg+xml"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/apple-touch-icon-180x180.png"
+    />
     <title>{title}</title>
     <ViewTransitions />
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   </head>
   <body class="min-h-screen flex bg-black_2 text-white">
     <div
