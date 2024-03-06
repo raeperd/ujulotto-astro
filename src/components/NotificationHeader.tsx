@@ -4,9 +4,12 @@ export default function NotificationHeader() {
   const { timeStr, stopped } = useCountdown(nextPickDate())
   return (
     <header className="bg-point flex items-center justify-between rounded-[33px] px-4 py-2">
-      <p className="flex gap-1 items-center">
-        <IconClock></IconClock>
-        <time>{timeStr}</time>
+      <p className="flex gap-2 items-center">
+        <p>3일</p>
+        <p className="flex items-center gap-1">
+          <IconClock></IconClock>
+          <time>{timeStr}</time>
+        </p>
       </p>
       <IconBell></IconBell>
     </header>
@@ -89,16 +92,15 @@ function useCountdown(targetDate: Date) {
     return () => clearInterval(interval)
   }, [targetDateTime])
 
-  const days = Math.floor(countDown / (1000 * 60 * 60 * 24))
   const hours = Math.floor(
     (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
   )
   const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((countDown % (1000 * 60)) / 1000)
 
-  const formatStr = `${days}일 ${hours}:${minutes
+  const formatStr = `${hours}:${minutes?.toString().padStart(2, '0')}:${seconds
     ?.toString()
-    .padStart(2, '0')}:${seconds?.toString().padStart(2, '0')}`
+    .padStart(2, '0')}`
 
   return {
     timeStr: formatStr,
