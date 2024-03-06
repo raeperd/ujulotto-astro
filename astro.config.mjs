@@ -19,6 +19,7 @@ export default defineConfig({
         short_name: '우주로또',
         start_url: '/',
         theme_color: '#ffffff',
+        display: 'standalone',
         icons: [
           {
             src: 'pwa-64x64.png',
