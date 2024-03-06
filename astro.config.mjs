@@ -14,6 +14,10 @@ export default defineConfig({
     react(),
     auth(),
     AstroPWA({
+      mode: 'development',
+      base: '/',
+      scope: '/',
+      includeAssets: ['favicon.svg'],
       manifest: {
         name: '우주로또',
         short_name: '우주로또',
@@ -45,8 +49,16 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        navigateFallback: '/',
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+      },
       devOptions: {
         enabled: true,
+        navigateFallbackAllowlist: [/^\//],
+      },
+      experimental: {
+        directoryAndTrailingSlashHandler: true,
       },
     }),
   ],
