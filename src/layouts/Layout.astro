@@ -68,6 +68,16 @@ const currentPath = Astro.url.pathname
       rel="apple-touch-icon"
       href="/apple-touch-icon-180x180.png"
     />
+    <link
+      rel="mask-icon"
+      href="/favicon.svg"
+      color="#FFFFFF"
+    />
+    <meta
+      name="msapplication-TileColor"
+      content="#FFFFFF"
+    />
+
     <title>{title}</title>
     <ViewTransitions />
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
