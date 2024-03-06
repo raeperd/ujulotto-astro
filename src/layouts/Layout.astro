@@ -81,7 +81,6 @@ const currentPath = Astro.url.pathname
     <title>{title}</title>
     <ViewTransitions />
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-    <script src="/src/pwa.ts"></script>
   </head>
   <body class="min-h-screen flex bg-black_2 text-white">
     <div
