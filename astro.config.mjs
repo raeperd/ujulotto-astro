@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     auth(),
     AstroPWA({
-      mode: 'development',
+      mode: 'production',
       base: '/',
       scope: '/',
       includeAssets: ['favicon.svg'],
