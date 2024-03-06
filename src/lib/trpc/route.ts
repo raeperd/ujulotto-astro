@@ -112,6 +112,67 @@ export const appRouter = router({
     .mutation(({ input, ctx }) => {
       return ctx.db.delete(numbers).where(inArray(numbers.id, input.ids))
     }),
+
+  getPlaces: publicProcedure
+    .input(
+      z.object({
+        query: z.string().min(1),
+        latitude: z.number(),
+        longitude: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const res = await fetch(
+        'https://dapi.kakao.com/v2/local/search/keyword?' +
+          new URLSearchParams({
+            query: input.query,
+            x: input.longitude.toString(),
+            y: input.latitude.toString(),
+            radius: '2000',
+          }).toString(),
+        {
+          headers: {
+            Authorization: 'KakaoAK 96d40be9ef0c11e65e8daf0b766da70b',
+          },
+        },
+      )
+      if (res.status != 200) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: await res.text(),
+        })
+      }
+      return placesSchema.parse(await res.json())
+    }),
+})
+
+const placesSchema = z.object({
+  documents: z.array(
+    z.object({
+      address_name: z.string(),
+      category_group_code: z.string(),
+      category_group_name: z.string(),
+      category_name: z.string(),
+      distance: z.string(),
+      id: z.string(),
+      phone: z.string(),
+      place_name: z.string(),
+      place_url: z.string(),
+      road_address_name: z.string(),
+      x: z.coerce.number(),
+      y: z.coerce.number(),
+    }),
+  ),
+  meta: z.object({
+    is_end: z.boolean(),
+    pageable_count: z.number(),
+    same_name: z.object({
+      keyword: z.string(),
+      region: z.array(z.unknown()),
+      selected_region: z.string(),
+    }),
+    total_count: z.number(),
+  }),
 })
 
 export const caller = createCallerFactory(appRouter)(await createContextInner())
