@@ -4,12 +4,10 @@ export default function NotificationHeader() {
   const { timeStr, stopped } = useCountdown(nextPickDate())
   return (
     <header className="bg-point flex items-center justify-between rounded-[33px] px-4 py-2">
-      <p className="flex gap-2 items-center">
-        <p>3일</p>
-        <p className="flex items-center gap-1">
-          <IconClock></IconClock>
-          <time>{timeStr}</time>
-        </p>
+      <p className="flex items-center">
+        <p className="text-lg font-bold">3일</p>
+        <time className="font-bold text-lg mx-2">{timeStr}</time>
+        <p>후 판매 마감</p>
       </p>
       <IconBell></IconBell>
     </header>
